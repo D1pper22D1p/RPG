@@ -3,8 +3,6 @@ using System.Drawing;
 namespace RPG.Models.Entity
 {
     internal partial class Player<I, L> : IInfoAboutPlayer
-        where I: notnull
-        where L: notnull
     {
         private string _str = "";
         internal string Name 
@@ -15,11 +13,11 @@ namespace RPG.Models.Entity
         internal I HP { get; set; }
         internal I Level { get; set; }
         internal L Experience { get; set; }
-        internal string Class { get; set; }
+        internal string Class { get; set; } = "";
 
         internal void SavePlayer(Player<I, L> player, string filePath)
         {
-            string directory = Path.GetDirectoryName(filePath);
+            string? directory = Path.GetDirectoryName(filePath);
 
             if (!Directory.Exists(directory))
             {
@@ -44,7 +42,7 @@ namespace RPG.Models.Entity
 
             string json = File.ReadAllText(filePath);
 
-            Player<int, long> player = JsonConvert.DeserializeObject<Player<int, long>>(json);
+            Player<int, long>? player = JsonConvert.DeserializeObject<Player<int, long>>(json);
             Console.WriteLine($"Data is loaded from: {filePath}");
             return player;
         }
