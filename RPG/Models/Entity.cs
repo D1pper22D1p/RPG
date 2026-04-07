@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Text;
 
 namespace RPG.Models.Entity
 {
@@ -19,14 +20,14 @@ namespace RPG.Models.Entity
         {
             string? directory = Path.GetDirectoryName(filePath);
 
-            if (!Directory.Exists(directory))
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
             string json = JsonConvert.SerializeObject(player, Formatting.Indented);
 
-            File.WriteAllText(filePath, json);
+            File.WriteAllText(filePath, json, Encoding.UTF8);
             Console.WriteLine($"Data saved to: {filePath}");
             Console.WriteLine("Click on the button to close.");
             Console.ReadKey();

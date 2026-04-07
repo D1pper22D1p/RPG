@@ -55,24 +55,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PC-7\\.nuget\\packages\\": {}
+    "C:\\Users\\deep3r\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\source\\RPG\\RPG.csproj",
+      "projectUniqueName": "D:\\proj\\RPG\\RPG\\RPG.csproj",
       "projectName": "RPG",
-      "projectPath": "D:\\source\\RPG\\RPG.csproj",
-      "packagesPath": "C:\\Users\\PC-7\\.nuget\\packages\\",
-      "outputPath": "D:\\source\\RPG\\obj\\",
+      "projectPath": "D:\\proj\\RPG\\RPG\\RPG.csproj",
+      "packagesPath": "C:\\Users\\deep3r\\.nuget\\packages\\",
+      "outputPath": "D:\\proj\\RPG\\RPG\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\PC-7\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\deep3r\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
