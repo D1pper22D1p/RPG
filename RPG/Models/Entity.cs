@@ -6,34 +6,47 @@ namespace RPG.Models.Entity
     internal partial class Player<I, L> : IInfoAboutPlayer
     {
         private string _str = "";
+        [JsonProperty("name")]
         internal string Name 
         { 
             get => FirstUpSymbolToUpper.Apply(_str); 
             set => _str = value;
         }
-        internal I HP { get; set; }
-        internal I Level { get; set; }
-        internal L Experience { get; set; }
+        [JsonProperty("hp")]
+        internal I? HP { get; set; }
+        [JsonProperty("level")]
+        internal I? Level { get; set; }
+        [JsonProperty("experience")]
+        internal L? Experience { get; set; }
+        [JsonProperty("class")]
         internal string Class { get; set; } = "";
+        public Player(){}
 
         internal void SavePlayer(Player<I, L> player, string filePath)
         {
-            string? directory = Path.GetDirectoryName(filePath);
-
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            try
             {
-                Directory.CreateDirectory(directory);
+                string? directory = Path.GetDirectoryName(filePath);
+
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                string json = JsonConvert.SerializeObject(player, Formatting.Indented);
+
+                File.WriteAllText(filePath, json, Encoding.UTF8);
+        
+                Console.WriteLine($"Data saved to: {filePath}");
             }
-
-            string json = JsonConvert.SerializeObject(player, Formatting.Indented);
-
-            File.WriteAllText(filePath, json, Encoding.UTF8);
-            Console.WriteLine($"Data saved to: {filePath}");
-            Console.WriteLine("Click on the button to close.");
-            Console.ReadKey();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR saving file: {ex.Message}");
+                Console.WriteLine($"Full Path: {Path.GetFullPath(filePath)}");
+            }
         }
 
-        internal Player<int, long> LoadPlayer(string filePath)
+        internal Player<int, long>? LoadPlayer(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -41,11 +54,22 @@ namespace RPG.Models.Entity
                 return null;
             }
 
-            string json = File.ReadAllText(filePath);
-
-            Player<int, long>? player = JsonConvert.DeserializeObject<Player<int, long>>(json);
-            Console.WriteLine($"Data is loaded from: {filePath}");
-            return player;
+            try{
+                string json = File.ReadAllText(filePath);
+                Player<int, long>? player = JsonConvert.DeserializeObject<Player<int, long>>(json);
+                if(player == null)
+                {
+                    Console.WriteLine("Error: File content is invalid.");
+                    return null;
+                }
+                Console.WriteLine($"Data is loaded from: {filePath}");
+                return player;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error reading file: {ex.Message}");
+                return null;
+            }
         }
     }
 

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "uh/MMTg5ZFg=",
+  "dgSpecHash": "1d2uk23gBdk=",
   "success": true,
   "projectFilePath": "D:\\proj\\RPG\\RPG\\RPG.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\deep3r\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512"
+    "C:\\Users\\PC-36\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512"
   ],
   "logs": []
 }
