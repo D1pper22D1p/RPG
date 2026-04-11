@@ -10,7 +10,7 @@ namespace RPG.newUI.ConsoleInfo
             WriteLine($"Level: {player.Level}");
             WriteLine($"Experience: {player.Experience}");
             WriteLine($"Class: {player.Class}");
-            WriteLine($"Current location: {player.currLocation}");
+            WriteLine($"Current location: {player.CurrLocation}");
         }
         internal virtual void InputMainStats(Player<int, long> player)
         {
@@ -45,12 +45,12 @@ namespace RPG.newUI.ConsoleInfo
             }
             if(int.TryParse(ReadLine(), out int locIndex) && Models.Locations.Type.types.ContainsKey(locIndex))
             {
-                player.currLocation = Models.Locations.Type.types[locIndex];
+                player.CurrLocation = Models.Locations.Type.types[locIndex];
             }
             else
             {
                 WriteLine("Invalid input. Defaulting to Forest.");
-                player.currLocation = Models.Locations.Type.types.ContainsKey(1) ? Models.Locations.Type.types[1] : "Forest";
+                player.CurrLocation = Models.Locations.Type.types.ContainsKey(1) ? Models.Locations.Type.types[1] : "Forest";
             }
         }
     }

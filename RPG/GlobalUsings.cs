@@ -1,6 +1,4 @@
 ﻿global using System;
-global using System.Windows;
-global using Microsoft.VisualBasic;
 global using Newtonsoft.Json;
 
 #region global usings from this project scripts

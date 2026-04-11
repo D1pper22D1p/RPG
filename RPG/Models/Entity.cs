@@ -7,14 +7,13 @@ namespace RPG.Models.Entity
 {
     internal partial class Player<I, L> : IInfoAboutPlayer
     {
-        private string _str = "";
         private byte _dataVersion = 1;
         [JsonProperty("name")]
         internal string Name 
         { 
-            get => FirstUpSymbolToUpper.Apply(_str); 
-            set => _str = value;
-        }
+            get => FirstUpSymbolToUpper.Apply(field); 
+            set;
+        } = "";
         [JsonProperty("hp")]
         internal I? HP { get; set; }
         [JsonProperty("level")]
@@ -24,21 +23,21 @@ namespace RPG.Models.Entity
         [JsonProperty("class")]
         internal string Class { get; set; } = "";
         [JsonProperty("location")]
-        internal string currLocation { get; set; } = "";
+        internal string CurrLocation { get; set; } = "";
         public Player(){}
 
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            if (string.IsNullOrEmpty(currLocation))
-                currLocation = "Forest";
+            if (string.IsNullOrEmpty(CurrLocation))
+                CurrLocation = "Forest";
         }
 
         internal void MigrateData()
         {
             if(_dataVersion < 1)
             {
-                currLocation = "Forest";
+                CurrLocation = "Forest";
                 _dataVersion += 1;
             }
         }
