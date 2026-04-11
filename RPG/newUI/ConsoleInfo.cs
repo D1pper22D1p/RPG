@@ -13,30 +13,28 @@ namespace RPG.newUI.ConsoleInfo
         }
         internal virtual void InputMainStats(Player<int, long> player)
         {
-            if (!File.Exists(fileManage.directoryPath))
+            WriteLine("Enter Name:");
+            player.Name = ReadLine();
+    
+            HP.Fill(HP.HPList);
+            player.HP = HP.HPList[0];
+            player.Level = 1;
+            player.Experience = 0;
+    
+            WriteLine("Enter the number of your class:");
+            foreach(var kvp in Class.classes)
             {
-                WriteLine("Enter Name:");
-                player.Name = ReadLine();
-                HP.Fill(HP.HPList);
-                player.HP = HP.HPList[0];
-                player.Level = 1;
-                player.Experience = 0;
-                WriteLine("Enter the number of ur class:");
-                if (int.TryParse(ReadLine(), out int index) && index >= 0 && index < Class.Classes.Count)
-                    player.Class = Class.Classes.ElementAt(index).Value;
-                else
-                    WriteLine("Invalid input. Please enter a valid number.");
-            }else
+                WriteLine($"{kvp.Key}. {kvp.Value}");
+            }
+
+            if (int.TryParse(ReadLine(), out int index) && Class.classes.ContainsKey(index))
             {
-                string[] lines = File.ReadAllLines(fileManage.directoryPath);
-                if (lines.Length == 5)
-                {
-                    player.Name = lines[0];
-                    player.HP = int.Parse(lines[1]);
-                    player.Level = int.Parse(lines[2]);
-                    player.Experience = long.Parse(lines[3]);
-                    player.Class = Class.Classes.ElementAt(int.Parse(lines[4])).Value;
-                }
+                player.Class = Class.classes[index];
+            }
+            else
+            {
+                WriteLine("Invalid input. Defaulting to Melee.");
+                player.Class = Class.classes.ContainsKey(1) ? Class.classes[1] : "Melee";
             }
         }
     }

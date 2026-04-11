@@ -90,7 +90,92 @@ namespace RPG.Models.Entity
 
     internal class Class
     {
-        internal static Dictionary<int, string> Classes { get; set; } = new Dictionary<int, string>() {{1, "Melee"}, {2, "Range"}};
+        [JsonProperty("classesList")]
+        internal Dictionary<int, string>? Classes { get; set; } = classes;
+
+        internal static Dictionary<int, string>? classes { get; set; } = new Dictionary<int, string>() 
+        {
+            {1, "Melee"},
+            {2, "Range"}
+        };
+
+        internal static void InitializeClasses(string filePath)
+        {
+            string? directory = Path.GetDirectoryName(filePath);
+            if(!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    string json = File.ReadAllText(filePath);
+                    var loadedData = JsonConvert.DeserializeObject<Class>(json);
+                    if(loadedData?.Classes != null)
+                    {
+                        classes = loadedData.Classes;
+                        Console.WriteLine($"Classes loaded from: {filePath}");
+                        return;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine($"ERROR loading classes: {ex.Message}");
+                }
+            }
+            Console.WriteLine("Classes file not found. Creating default...");
+            SaveClassesStatic(filePath);
+        }
+
+        internal static void SaveClassesStatic(string filePath)
+        {
+            try
+            {
+                var wrapper = new Class();
+                wrapper.Classes = classes;
+                string json = JsonConvert.SerializeObject(wrapper, Formatting.Indented);
+                File.WriteAllText(filePath, json, Encoding.UTF8);
+                Console.WriteLine($"Default classes saved to: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error to save classes: {ex.Message}");
+            }
+        }
+        internal void SaveClasses(Class cl, string filePath)
+        {
+            if(cl.Classes != null)
+            {
+                Class.classes = cl.Classes;
+            }
+            SaveClassesStatic(filePath);
+        }
+        /*internal Class? LoadClasses(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine($"File not found: {filePath}");
+                return null;
+            }
+
+            try{
+                string json = File.ReadAllText(filePath);
+                Class? classes = JsonConvert.DeserializeObject<Class>(json);
+                if(classes == null)
+                {
+                    Console.WriteLine("Error: File content is invalid.");
+                    return null;
+                }
+                Console.WriteLine($"Data is loaded from: {filePath}");
+                return classes;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error reading file: {ex.Message}");
+                return null;
+            }
+        }*/
     }
 
     internal class Levels

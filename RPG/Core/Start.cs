@@ -1,3 +1,4 @@
+using RPG.Models.Entity;
 
 namespace RPG.Core.Start
 {
@@ -6,13 +7,23 @@ namespace RPG.Core.Start
         internal static void Main(string[] args)
         {
             string directory = fileManage.directoryPath;
+            string directoryWorld = fileManage.worldInfoDirectoryPath;
+            string classesFile = fileManage.classesFilePath;
             
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            if (!Directory.Exists(directoryWorld)) Directory.CreateDirectory(directoryWorld);
 
+            Class.InitializeClasses(classesFile);
+
+            string[] saveWFiles = Directory.GetFiles(directoryWorld, "*.json");
             string[] saveFiles = Directory.GetFiles(directory, "*.json");
+
+            Class? cl = null;
+            if (saveWFiles == null)
+            {
+                cl = new Class();
+            }
+            
             Player<int, long>? player = null;
 
             if (saveFiles.Length > 0)
