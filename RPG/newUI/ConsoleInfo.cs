@@ -39,24 +39,24 @@ namespace RPG.newUI.ConsoleInfo
             }
             
             WriteLine("Enter your starting location:");
-            foreach (var kvp in Models.Levels.Type.types)
+            foreach (var kvp in Models.Locations.Type.types)
             {
                 WriteLine($"{kvp.Key}. {kvp.Value}");
             }
-            if(int.TryParse(ReadLine(), out int locIndex) && Models.Levels.Type.types.ContainsKey(locIndex))
+            if(int.TryParse(ReadLine(), out int locIndex) && Models.Locations.Type.types.ContainsKey(locIndex))
             {
-                player.currLocation = Models.Levels.Type.types[locIndex];
+                player.currLocation = Models.Locations.Type.types[locIndex];
             }
             else
             {
                 WriteLine("Invalid input. Defaulting to Forest.");
-                player.currLocation = Models.Levels.Type.types.ContainsKey(1) ? Models.Levels.Type.types[1] : "Forest";
+                player.currLocation = Models.Locations.Type.types.ContainsKey(1) ? Models.Locations.Type.types[1] : "Forest";
             }
         }
     }
     internal interface IInfoAboutWorld
     {
-        internal virtual void WriteAllInfo(Level<int> level)
+        internal virtual void WriteAllInfo(Location<int> level)
         {
             WriteLine("Level Information:");
             WriteLine(level.id);

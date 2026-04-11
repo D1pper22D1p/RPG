@@ -1,9 +1,9 @@
 using System.Data.Common;
 using System.Dynamic;
 
-namespace RPG.Models.Levels
+namespace RPG.Models.Locations
 {
-    internal abstract class Level<I> : IInfoAboutWorld
+    internal abstract class Location<I> : IInfoAboutWorld
     {
         private string _str = "";
         internal I? id { get; set; }
