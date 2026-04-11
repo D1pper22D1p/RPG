@@ -1,0 +1,29 @@
+using System.Data.Common;
+using System.Dynamic;
+
+namespace RPG.Models.Levels
+{
+    internal abstract class Level<I> : IInfoAboutWorld
+    {
+        private string _str = "";
+        internal I? id { get; set; }
+        internal string name
+        {
+            get => FirstUpSymbolToUpper.Apply(_str);
+            set => _str = value;
+        }
+        internal I? difficulty { get; set; }
+        internal string? type { get; set;}
+    }
+
+    internal class Type
+    {
+        internal Dictionary<int, string> Types = types;
+        internal static Dictionary<int, string> types = new Dictionary<int, string>
+        {
+            {1, "Forest"},
+            {2, "Ruins"},
+            {3, "Spider Cave"}
+        };
+    }
+}

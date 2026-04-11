@@ -10,6 +10,7 @@ namespace RPG.newUI.ConsoleInfo
             WriteLine($"Level: {player.Level}");
             WriteLine($"Experience: {player.Experience}");
             WriteLine($"Class: {player.Class}");
+            WriteLine($"Current location: {player.currLocation}");
         }
         internal virtual void InputMainStats(Player<int, long> player)
         {
@@ -36,6 +37,32 @@ namespace RPG.newUI.ConsoleInfo
                 WriteLine("Invalid input. Defaulting to Melee.");
                 player.Class = Class.classes.ContainsKey(1) ? Class.classes[1] : "Melee";
             }
+            
+            WriteLine("Enter your starting location:");
+            foreach (var kvp in Models.Levels.Type.types)
+            {
+                WriteLine($"{kvp.Key}. {kvp.Value}");
+            }
+            if(int.TryParse(ReadLine(), out int locIndex) && Models.Levels.Type.types.ContainsKey(locIndex))
+            {
+                player.currLocation = Models.Levels.Type.types[locIndex];
+            }
+            else
+            {
+                WriteLine("Invalid input. Defaulting to Forest.");
+                player.currLocation = Models.Levels.Type.types.ContainsKey(1) ? Models.Levels.Type.types[1] : "Forest";
+            }
+        }
+    }
+    internal interface IInfoAboutWorld
+    {
+        internal virtual void WriteAllInfo(Level<int> level)
+        {
+            WriteLine("Level Information:");
+            WriteLine(level.id);
+            WriteLine(level.name);
+            WriteLine(level.difficulty);
+            WriteLine(level.type);
         }
     }
 }

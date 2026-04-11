@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace RPG.Models.Entity
@@ -6,6 +8,7 @@ namespace RPG.Models.Entity
     internal partial class Player<I, L> : IInfoAboutPlayer
     {
         private string _str = "";
+        private byte _dataVersion = 1;
         [JsonProperty("name")]
         internal string Name 
         { 
@@ -20,7 +23,25 @@ namespace RPG.Models.Entity
         internal L? Experience { get; set; }
         [JsonProperty("class")]
         internal string Class { get; set; } = "";
+        [JsonProperty("location")]
+        internal string currLocation { get; set; } = "";
         public Player(){}
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            if (string.IsNullOrEmpty(currLocation))
+                currLocation = "Forest";
+        }
+
+        internal void MigrateData()
+        {
+            if(_dataVersion < 1)
+            {
+                currLocation = "Forest";
+                _dataVersion += 1;
+            }
+        }
 
         internal void SavePlayer(Player<I, L> player, string filePath)
         {
@@ -34,6 +55,7 @@ namespace RPG.Models.Entity
                 }
 
                 string json = JsonConvert.SerializeObject(player, Formatting.Indented);
+                player?.MigrateData();
 
                 File.WriteAllText(filePath, json, Encoding.UTF8);
         

@@ -9,5 +9,6 @@ global using Newtonsoft.Json;
     global using RPG.Models.Entity;
     global using RPG.newUI.ConsoleInfo;
     global using RPG.Data.SaveManage;
+    global using RPG.Models.Levels;
 
 #endregion
