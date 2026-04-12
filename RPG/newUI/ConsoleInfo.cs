@@ -16,12 +16,12 @@ namespace RPG.newUI.ConsoleInfo
         {
             WriteLine("Enter Name:");
             player.Name = ReadLine();
-    
+
             HP.Fill(HP.HPList);
             player.HP = HP.HPList[0];
             player.Level = 1;
             player.Experience = 0;
-    
+
             WriteLine("Enter the number of your class:");
             foreach(var kvp in Class.classes)
             {
@@ -37,20 +37,20 @@ namespace RPG.newUI.ConsoleInfo
                 WriteLine("Invalid input. Defaulting to Melee.");
                 player.Class = Class.classes.ContainsKey(1) ? Class.classes[1] : "Melee";
             }
-            
+
             WriteLine("Enter your starting location:");
-            foreach (var kvp in Models.Locations.Type.types)
+            foreach (var kvp in Models.Locations.Type.ListOfTypes)
             {
                 WriteLine($"{kvp.Key}. {kvp.Value}");
             }
-            if(int.TryParse(ReadLine(), out int locIndex) && Models.Locations.Type.types.ContainsKey(locIndex))
+            if(int.TryParse(ReadLine(), out int locIndex) && Models.Locations.Type.ListOfTypes.ContainsKey(locIndex))
             {
-                player.CurrLocation = Models.Locations.Type.types[locIndex];
+                player.CurrLocation = Models.Locations.Type.ListOfTypes[locIndex];
             }
             else
             {
                 WriteLine("Invalid input. Defaulting to Forest.");
-                player.CurrLocation = Models.Locations.Type.types.ContainsKey(1) ? Models.Locations.Type.types[1] : "Forest";
+                player.CurrLocation = Models.Locations.Type.ListOfTypes.ContainsKey(1) ? Models.Locations.Type.ListOfTypes[1] : "Forest";
             }
         }
     }

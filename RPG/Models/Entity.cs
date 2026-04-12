@@ -9,9 +9,9 @@ namespace RPG.Models.Entity
     {
         private byte _dataVersion = 1;
         [JsonProperty("name")]
-        internal string Name 
-        { 
-            get => FirstUpSymbolToUpper.Apply(field); 
+        internal string Name
+        {
+            get => FirstUpSymbolToUpper.Apply(field);
             set;
         } = "";
         [JsonProperty("hp")]
@@ -57,7 +57,7 @@ namespace RPG.Models.Entity
                 player?.MigrateData();
 
                 File.WriteAllText(filePath, json, Encoding.UTF8);
-        
+
                 Console.WriteLine($"Data saved to: {filePath}");
             }
             catch (Exception ex)
@@ -94,14 +94,14 @@ namespace RPG.Models.Entity
         }
     }
 
-    internal class HP
+    internal static class HP
     {
-        internal static List<int> HPList = new List<int>(Levels.size);
+        internal static readonly List<int> HPList = new(Levels.Size);
         internal static void Fill(List<int> hpList)
         {
-            for(int i = 0; i < Levels.size; i++)
+            for(int i = 1; i <= Levels.Size; i++)
             {
-                if((i += 1) % 2 == 0)
+                if(i % 2 == 0)
                     hpList.Add(i * 500);
                 else
                     hpList.Add(i * 800);
@@ -114,7 +114,7 @@ namespace RPG.Models.Entity
         [JsonProperty("classesList")]
         internal Dictionary<int, string>? Classes { get; set; } = classes;
 
-        internal static Dictionary<int, string>? classes { get; set; } = new Dictionary<int, string>() 
+        internal static Dictionary<int, string>? classes { get; set; } = new Dictionary<int, string>()
         {
             {1, "Melee"},
             {2, "Range"}
@@ -172,48 +172,23 @@ namespace RPG.Models.Entity
             }
             SaveClassesStatic(filePath);
         }
-        /*internal Class? LoadClasses(string filePath)
-        {
-            if (!File.Exists(filePath))
-            {
-                Console.WriteLine($"File not found: {filePath}");
-                return null;
-            }
-
-            try{
-                string json = File.ReadAllText(filePath);
-                Class? classes = JsonConvert.DeserializeObject<Class>(json);
-                if(classes == null)
-                {
-                    Console.WriteLine("Error: File content is invalid.");
-                    return null;
-                }
-                Console.WriteLine($"Data is loaded from: {filePath}");
-                return classes;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"Error reading file: {ex.Message}");
-                return null;
-            }
-        }*/
     }
 
     internal class Levels
     {
-        internal static int size = 100;
-        internal byte[] level = new byte[size];
-        internal List<int> ExpPerLevel = new List<int>(size);
+        internal static readonly int Size = 100;
+        internal byte[] level = new byte[Size];
+        internal List<int> ExpPerLevel = new List<int>(Size);
         internal static void Fill(byte[] level, List<int> expPerLevel)
         {
-            for(int i = 0; i < size; i++)
+            for(int i = 0; i < Size; i++)
             {
                 level[i] = (byte)(i + 1);
                 if(i % 2 == 0)
                     expPerLevel.Add(i * 500 + 500);
-                else if(i % 2 != 0)
+                else
                     expPerLevel.Add(i * 250 + 250);
-                
+
             }
         }
     }

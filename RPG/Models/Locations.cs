@@ -18,8 +18,8 @@ namespace RPG.Models.Locations
 
     internal class Type
     {
-        internal Dictionary<int, string> Types = types;
-        internal static Dictionary<int, string> types = new Dictionary<int, string>
+        internal Dictionary<int, string> Types = ListOfTypes;
+        internal static readonly Dictionary<int, string> ListOfTypes = new()
         {
             {1, "Forest"},
             {2, "Ruins"},

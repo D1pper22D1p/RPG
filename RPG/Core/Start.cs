@@ -2,14 +2,14 @@ using RPG.Models.Entity;
 
 namespace RPG.Core.Start
 {
-    internal class StartGame
+    internal static class StartGame
     {
         internal static void Main(string[] args)
         {
-            string directory = fileManage.directoryPath;
-            string directoryWorld = fileManage.worldInfoDirectoryPath;
-            string classesFile = fileManage.classesFilePath;
-            
+            string directory = FileManage.directoryPath;
+            string directoryWorld = FileManage.WorldInfoDirectoryPath;
+            string classesFile = FileManage.ClassesFilePath;
+
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
             if (!Directory.Exists(directoryWorld)) Directory.CreateDirectory(directoryWorld);
 
@@ -17,13 +17,11 @@ namespace RPG.Core.Start
 
             string[] saveWFiles = Directory.GetFiles(directoryWorld, "*.json");
             string[] saveFiles = Directory.GetFiles(directory, "*.json");
-
-            Class? cl = null;
             if (saveWFiles == null)
             {
-                cl = new Class();
+                _ = new Class();
             }
-            
+
             Player<int, long>? player = null;
 
             if (saveFiles.Length > 0)
@@ -47,7 +45,7 @@ namespace RPG.Core.Start
                         Console.WriteLine("Error loading file. Creating new character...");
                         player = CreateNewPlayer(directory);
                     }
-                    else 
+                    else
                     {
                         Console.WriteLine($"Loaded: {player.Name}");
                     }
@@ -67,7 +65,7 @@ namespace RPG.Core.Start
             {
                 Console.WriteLine("\n--- Player Stats ---");
                 ((IInfoAboutPlayer)player).WriteMainStats(player);
-                
+
                 string savePath = Path.Combine(directory, $"{player.Name}.json");
                 player.SavePlayer(player, savePath);
             }
@@ -79,10 +77,10 @@ namespace RPG.Core.Start
         {
             Player<int, long> newPlayer = new Player<int, long>();
             ((IInfoAboutPlayer)newPlayer).InputMainStats(newPlayer);
-            
+
             string savePath = Path.Combine(directory, $"{newPlayer.Name}.json");
             newPlayer.SavePlayer(newPlayer, savePath);
-            
+
             return newPlayer;
         }
     }

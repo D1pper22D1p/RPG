@@ -1,7 +1,7 @@
 
 namespace RPG.Core.StringMethods
 {
-    internal class FirstUpSymbolToUpper
+    internal static class FirstUpSymbolToUpper
     {
         internal static string Apply(string String)
         {

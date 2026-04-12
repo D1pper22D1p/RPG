@@ -1,11 +1,11 @@
 
 namespace RPG.Data.SaveManage
 {
-    internal class fileManage
+    internal static class FileManage
     {
-        protected internal static string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        protected internal static string directoryPath = Path.Combine(baseDirectory, "DataJson");
-        protected internal static string worldInfoDirectoryPath = Path.Combine(baseDirectory, "DataJson", "world");
-        protected internal static string classesFilePath = Path.Combine(worldInfoDirectoryPath, "classes.json");
+        internal static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        internal static readonly string DirectoryPath = Path.Combine(BaseDirectory, "DataJson");
+        internal static readonly string WorldInfoDirectoryPath = Path.Combine(BaseDirectory, "DataJson", "world");
+        internal static readonly string ClassesFilePath = Path.Combine(WorldInfoDirectoryPath, "classes.json");
     }
 }
