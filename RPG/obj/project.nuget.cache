@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "TnFC8PtH6CE=",
+  "dgSpecHash": "SjputfBTw6M=",
   "success": true,
   "projectFilePath": "D:\\proj\\RPG\\RPG\\RPG.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\PC-36\\.nuget\\packages\\microsoft.codeanalysis.netanalyzers\\8.0.0\\microsoft.codeanalysis.netanalyzers.8.0.0.nupkg.sha512",
-    "C:\\Users\\PC-36\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512",
-    "C:\\Users\\PC-36\\.nuget\\packages\\sonaranalyzer.csharp\\9.12.0.78982\\sonaranalyzer.csharp.9.12.0.78982.nupkg.sha512"
+    "C:\\Users\\deep3r\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512",
+    "C:\\Users\\deep3r\\.nuget\\packages\\sonaranalyzer.csharp\\9.12.0.78982\\sonaranalyzer.csharp.9.12.0.78982.nupkg.sha512"
   ],
   "logs": []
 }
